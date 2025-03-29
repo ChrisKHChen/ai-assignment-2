@@ -128,21 +128,6 @@ class QLearningAgent(ReinforcementAgent):
           it will be called on your behalf
         """
         "*** YOUR CODE HERE (5) ***"
-        # No legal action -> None
-        if state is None:
-          return
-          # Current Q-value estimate
-        current_q = self.getQValue(state, action)
-        
-        # Max Q-value for next state
-        next_max_q = self.computeValueFromQValues(nextState)
-        
-        # Calculate new Q-value using learning rate (α) and discount (γ)
-        updated_q = (1 - self.alpha) * current_q + \
-                    self.alpha * (reward + self.discount * next_max_q)
-        
-        # Store the updated Q-value
-        self.qvalue[(state, action)] = updated_q
 
 
     def getPolicy(self, state):
