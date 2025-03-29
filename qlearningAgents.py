@@ -128,6 +128,7 @@ class QLearningAgent(ReinforcementAgent):
           it will be called on your behalf
         """
         "*** YOUR CODE HERE (5) ***"
+        # Q value update Formula
         self.qvalue[(state, action)] = ((1 - self.alpha) * self.getQValue(state, action)) + (self.alpha * (reward + (self.discount * self.computeValueFromQValues(nextState))))
         
 

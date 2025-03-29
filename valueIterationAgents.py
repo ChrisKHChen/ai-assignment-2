@@ -65,12 +65,15 @@ class ValueIterationAgent(ValueEstimationAgent):
           value iteration, V_k+1(...) depends on V_k(...)'s.
         """
         "*** YOUR CODE HERE (1) ***"
+        #for every iteration
         for i in range (self.iterations):
+            #make a copy of the values, as we'll be changing them during the later loops, and the altered values will mess up the other state loops
             tempval = self.values.copy()
-
+            #for every state
             for s in self.mdp.getStates():
+                #create the maximum num/ max value 
                 maxnum = float('-inf')
-
+                #check every action in this state for the maximum value action
                 for a in self.mdp.getPossibleActions(s):
                     v = 0
 
@@ -81,7 +84,7 @@ class ValueIterationAgent(ValueEstimationAgent):
                 
                 if maxnum == float('-inf'):
                     maxnum = 0.0
-
+                #change value of current state to maximum value
                 self.values[s] = maxnum
         
 
@@ -98,6 +101,7 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE (2) ***"
+        
         Q = 0
         for sprime, prob in self.mdp.getTransitionStatesAndProbs(state, action):
             Q += prob * (self.mdp.getReward(state, action, sprime) + self.discount * self.values[sprime])
