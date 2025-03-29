@@ -101,9 +101,11 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE (2) ***"
-        
+
         Q = 0
+        #checks all transactions states
         for sprime, prob in self.mdp.getTransitionStatesAndProbs(state, action):
+            #get q values
             Q += prob * (self.mdp.getReward(state, action, sprime) + self.discount * self.values[sprime])
         return  Q
 
@@ -118,9 +120,11 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE (3) ***"
+        #best action
         best = None
+        #max value number
         maxnum = float("-inf")
-
+        #check all actions in currect state, and finds highest q value
         for action in self.mdp.getPossibleActions(state):
             Q = self.computeQValueFromValues(state, action)
 
