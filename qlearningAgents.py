@@ -51,8 +51,8 @@ class QLearningAgent(ReinforcementAgent):
           or the Q node value otherwise
         """
         "*** YOUR CODE HERE (1) ***"        
-        util.raiseNotDefined()
-
+        return self.getQValue[(state, action)]
+    
     def computeValueFromQValues(self, state):
         """
           Returns max_action Q(state,action)
@@ -61,8 +61,16 @@ class QLearningAgent(ReinforcementAgent):
           terminal state, you should return a value of 0.0.
         """
         "*** YOUR CODE HERE (2) ***"
-        util.raiseNotDefined()
-
+        legal_actions = self.getLegalActions(state)
+        if not legal_actions: 
+            return 0.0
+        max_value = -float('inf')
+        for action in legal_actions:
+            q = self.getQValue(state, action)
+            if q > max_value:
+                max_value = q
+        return max_value    
+    
     def computeActionFromQValues(self, state):
         """
           Compute the best action to take in a state.  Note that if there
@@ -70,7 +78,17 @@ class QLearningAgent(ReinforcementAgent):
           you should return None.
         """
         "*** YOUR CODE HERE (3) ***"
-        util.raiseNotDefined()
+        legal_actions = self.getLegalActions(state)
+        if not legal_actions:
+            return None
+          
+        max_value = self.computeValueFromQValues(state)
+        best_actions = []
+        for action in legal_actions:
+            if self.getQValue(state, action) == max_value:
+                best_actions.append(action)
+        # Tie breaker
+        return random.choice(best_actions) 
 
     def getAction(self, state):
         """
